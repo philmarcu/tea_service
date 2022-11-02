@@ -3,6 +3,6 @@ FactoryBot.define do
     title { Faker::Subscription.plan }
     price { Faker::Number.decimal(l_digits: 2) }
     status { 0 }
-    frequency { [10, 20, 30].sample }
+    frequency { ['monthly', 'quarterly', 'annually'].sample }
   end
 end

@@ -15,6 +15,6 @@ class Subscription < ApplicationRecord
   enum frequency: {
     monthly: 10,
     quarterly: 20,
-    yearly: 30
+    annually: 30
   }
 end
