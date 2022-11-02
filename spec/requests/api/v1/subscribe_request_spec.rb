@@ -6,7 +6,7 @@ RSpec.describe 'Subscribe API' do
     let!(:tea) {create(:tea)}
 
     it 'lets a customer subscribe to a tea they choose' do
-      expect(Subscription.all.size).to eq(0)
+      expect(Subscription.count).to eq(0)
 
       sub_params = {
         title: "#{tea.title}",
@@ -23,6 +23,7 @@ RSpec.describe 'Subscribe API' do
       results = parsed_json[:data]
       attributes = results[:attributes]
 
+      expect(Subscription.count).to eq(1)
       expect(response).to be_successful
       expect(response.status).to eq(200)
       expect(results).to have_key(:id)
@@ -31,6 +32,14 @@ RSpec.describe 'Subscribe API' do
       expect(attributes[:price]).to be_a Float
       expect(attributes[:status]).to be_a String
       expect(attributes[:frequency]).to be_a String
+    end
+
+    it 'cancels a subscription for a customer' do
+      sub = create(:subscription, customer_id: billy.id, tea_id: tea.id)
+
+      expect(Subscription.count).to eq(1)
+      expect{delete api_v1_subscription_path(sub.id)}.to change(Subscription, :count).by(-1)
+      expect{Subscription.find(sub.id)}.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 end

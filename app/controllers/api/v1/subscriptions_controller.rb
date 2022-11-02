@@ -10,4 +10,8 @@ class Api::V1::SubscriptionsController < ApplicationController
       json_response(sub_serializer(sub))
     end
   end
+
+  def destroy
+    json_response(Subscription.destroy(params[:id]))
+  end
 end
