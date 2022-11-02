@@ -5,4 +5,9 @@ class Customer < ApplicationRecord
   validates :address, presence: true
   has_many :subscriptions
   has_many :teas, through: :subscriptions
+
+
+  def full_name
+    first_name + " " + last_name
+  end
 end
