@@ -13,4 +13,13 @@ RSpec.describe Customer do
     it { should have_many(:subscriptions) }
     it { should have_many(:teas).through(:subscriptions) } 
   end
+
+  describe '#instance_methods' do
+    describe '#full_name' do
+      it 'gives us the full name' do
+        billy = Customer.create!(first_name: "Last", last_name: "Firstly", email: "email@email.com", address: "123 St NY, NY")
+        expect(billy.full_name).to eq("Last Firstly")
+      end
+    end
+  end
 end
