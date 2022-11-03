@@ -8,6 +8,8 @@ class Api::V1::SubscriptionsController < ApplicationController
                       tea_id: sub_params['tea_id'])
     if sub.save
       json_response(sub_serializer(sub))
+    else
+      json_errors(sub)
     end
   end
 
