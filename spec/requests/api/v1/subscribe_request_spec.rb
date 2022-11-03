@@ -64,5 +64,12 @@ RSpec.describe 'Subscribe API' do
                                           "Customer must exist", 
                                           "Tea must exist"])
     end
+
+    it 'will not delete subscription if it does not exist' do
+      delete api_v1_subscription_path(1)
+      parsed_json = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(parsed_json[:message]).to eq("Couldn't find Subscription with 'id'=1")
+    end
   end
 end
