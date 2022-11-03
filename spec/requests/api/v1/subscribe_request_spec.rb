@@ -42,4 +42,34 @@ RSpec.describe 'Subscribe API' do
       expect{Subscription.find(sub.id)}.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
+
+  context 'sad path' do
+    it 'will not create subscription if credentials are invalid' do
+      bad_params = {
+        title: "",
+        price: nil,
+        frequency: "",
+        customer_id: 999,
+        tea_id: 999
+      }
+
+      headers = {"CONTENT_TYPE" => "application/json"}
+      
+      post api_v1_subscriptions_path, headers: headers, params: JSON.generate(subscription: bad_params)
+      parsed_json = JSON.parse(response.body, symbolize_names: true)
+      expect(response.status).to eq(422)
+      expect(parsed_json[:errors]).to eq(["Title can't be blank", 
+                                          "Price can't be blank", 
+                                          "Frequency can't be blank", 
+                                          "Customer must exist", 
+                                          "Tea must exist"])
+    end
+
+    it 'will not delete subscription if it does not exist' do
+      delete api_v1_subscription_path(9999)
+      parsed_json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(parsed_json[:message]).to eq("Couldn't find Subscription with 'id'=9999")
+    end
+  end
 end

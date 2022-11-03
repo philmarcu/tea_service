@@ -32,4 +32,13 @@ RSpec.describe 'Subscriptions API' do
       end
     end
   end
+
+  context 'sad path' do
+    it 'will not find subscriptions for non-existent customer' do
+      get api_v1_customer_subscriptions_path(9999)
+      parsed_json = JSON.parse(response.body, symbolize_names: true)
+
+      expect(parsed_json[:message]).to eq("Couldn't find Customer with 'id'=9999")
+    end
+  end
 end
