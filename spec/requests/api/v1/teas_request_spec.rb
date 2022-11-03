@@ -24,4 +24,15 @@ RSpec.describe 'Teas API' do
       end
     end
   end
+
+  context 'sad path' do
+    it 'returns empty array if no teas are present' do
+      get api_v1_teas_path
+  
+      parsed_json = JSON.parse(response.body, symbolize_names: true)
+      results = parsed_json[:data]
+
+      expect(results).to eq([])
+    end
+  end
 end
