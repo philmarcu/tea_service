@@ -13,6 +13,12 @@ class Api::V1::SubscriptionsController < ApplicationController
     end
   end
 
+  def cancel
+    sub = Subscription.find(params[:subscription_id])
+    sub.status = "cancelled"
+    json_response({message: "#{sub.title} has been cancelled for #{sub.customer.full_name}"})
+  end
+
   def destroy
     json_response(Subscription.destroy(params[:id]))
   end
