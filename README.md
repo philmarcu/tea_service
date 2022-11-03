@@ -1,24 +1,48 @@
-# README
+# Tea Service API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Table of Contents
+1. [Overview](#overview)
+2. [Endpoints](#endpoints)
+3. [Gems & Resources](#gems-&-resources)
 
-Things you may want to cover:
 
-* Ruby version
+## Overview
+🍵 Tea Service is a subscription app designed to let a customer subscribe to regular shipments of tea for a period of their choosing - monthly, quarterly or annually. A customer can suscribe, cancel a subscription, and view all of their previous subscriptions whether they are active, pending or cancelled. A customer can also view all teas currently stored in the database. Future feature may involve consuming Tea API for data.
 
-* System dependencies
 
-* Configuration
+## Endpoints
 
-* Database creation
+The current endpoints in tea service are:
 
-* Database initialization
+### Find All Teas
 
-* How to run the test suite
+```
+GET /teas
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### Find a Customer's Subscriptions
 
-* Deployment instructions
+```
+GET /customers/:customer_id/subscriptions
+```
 
-* ...
+### Create a Subscription
+
+```
+POST /subscriptions
+```
+
+### Cancel a Subscription
+
+```
+DELETE /subscriptions/:id
+```
+
+
+## Gems & Resources
+
+Gems used in the creation of this project: 
+
+[jsonapi-serializer](https://github.com/jsonapi-serializer/jsonapi-serializer#installation) 
+[Faker](https://github.com/faker-ruby/faker#usage)
+[Factory Bot](https://github.com/thoughtbot/factory_bot)
