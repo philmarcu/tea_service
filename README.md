@@ -43,6 +43,12 @@ POST /subscriptions
 ### Cancel a Subscription
 
 ```
+GET /subscriptions/:subscription_id/cancel
+```
+
+### Delete a Subscription
+
+```
 DELETE /subscriptions/:id
 ```
 
